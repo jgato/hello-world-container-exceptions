@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exception-app-deployment
+  labels:
+    app: exception-app
+spec:
+  replicas: 1  # Número de réplicas
+  selector:
+    matchLabels:
+      app: exception-app
+  template:
+    metadata:
+      labels:
+        app: exception-app
+    spec:
+      containers:
+      - name: exception-app
+        image: exception-app:latest  # Cambia si usas un registro remoto
+        env:
+        - name: WAIT_TIME
+          value: "30"  # Valor predeterminado, ajustable a través de esta variable
+        resources:
+          limits:
+            memory: "128Mi"  # Ajusta según tus necesidades
+            cpu: "500m"
+        restartPolicy: Always  # Reinicia automáticamente si falla
+
