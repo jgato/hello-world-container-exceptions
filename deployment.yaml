@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: exception-app-deployment
+  namespace: example-workload
   labels:
     app: exception-app
 spec:
@@ -25,4 +26,7 @@ spec:
             memory: "128Mi"  # Ajusta según tus necesidades
             cpu: "500m"
         restartPolicy: Always  # Reinicia automáticamente si falla
-
+      volumes:
+        - name: my-storage
+          persistentVolumeClaim:
+            claimName: my-pvc
